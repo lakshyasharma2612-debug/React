@@ -50,7 +50,7 @@ function Quiz()
     
    <div className="nav-buttons">
     <button onClick={goPrev} disabled ={currQuest===0}> Previous </button>
-    <button onClick={goNext} disabled={selectedAns===null}> Next </button>
+    <button onClick={goNext} disabled={selectedAns===null}> {currQuest===questionbank.length-1?"Submit":"Next"} </button>
 
    </div>
     </div>
