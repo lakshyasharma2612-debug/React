@@ -49,9 +49,15 @@ function Quiz()
         setcurrQuest(currQuest-1);
     }
     }
+    function restartQuiz()
+    {
+        setans(ans);
+        setcurrQuest(0);
+        setquizFinished(false);
+    }
     if(quizFinished)
     {
-        return <Results />
+        return <Results userans={userans}  questionbank={questionbank}  restartQuiz={restartQuiz}/>
     }
     return <div> <h2> Question {currQuest+1}</h2>
     <p className="question"> {questionbank[currQuest].question}</p>
