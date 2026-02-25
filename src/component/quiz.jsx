@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Results from "./results";
 
 function Quiz()
 {
@@ -25,6 +26,7 @@ function Quiz()
     const [currQuest,setcurrQuest]=useState(0);
    const [opselected,setopselected]=useState("None");
    const selectedAns=userans[currQuest];
+   const[quizFinished,setquizFinished]=useState(false);
 
     function handleoption(option)
     {
@@ -34,15 +36,24 @@ function Quiz()
        
     }
     function goNext()
+    { if(currQuest===questionbank.length-1)
     {
+        setquizFinished(true);
+    }
+    else{
         setcurrQuest(currQuest+1);
+    }
     }
     function goPrev()
     {   if(currQuest>0){
         setcurrQuest(currQuest-1);
     }
     }
-    return <div> <h2> Question {currQuest}</h2>
+    if(quizFinished)
+    {
+        return <Results />
+    }
+    return <div> <h2> Question {currQuest+1}</h2>
     <p className="question"> {questionbank[currQuest].question}</p>
     {questionbank[currQuest].options.map((option)=>(
          <button className={"option"+(selectedAns==option?" selected":"")} onClick={()=> handleoption(option)}>{option}</button>
