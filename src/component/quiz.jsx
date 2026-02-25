@@ -20,21 +20,37 @@ function Quiz()
         },
         
     ]
+    const ans=[null,null,null];
+    const[userans,setans]=useState(ans);
+    const [currQuest,setcurrQuest]=useState(0);
    const [opselected,setopselected]=useState("None");
+   const selectedAns=userans[currQuest];
 
     function handleoption(option)
     {
-       setopselected(option);
+        const newAns=[...userans];
+        newAns[currQuest]=option;
+        setans(newAns);
+       
     }
-    return <div> <h2> Question 1</h2>
-    <p className="question"> {questionbank[0].question}</p>
-    {questionbank[0].options.map((option)=>(
+    function goNext()
+    {
+        setcurrQuest(currQuest+1);
+    }
+    function goPrev()
+    {   if(currQuest>0){
+        setcurrQuest(currQuest-1);
+    }
+    }
+    return <div> <h2> Question {currQuest}</h2>
+    <p className="question"> {questionbank[currQuest].question}</p>
+    {questionbank[currQuest].options.map((option)=>(
          <button className="option" onClick={()=> handleoption(option)}>{option}</button>
     ))}
-    <p> Option Selected:{opselected}</p>
+    
    <div className="nav-buttons">
-    <button>Previous</button>
-    <button>Next</button>
+    <button onClick={goPrev} disabled ={currQuest===0}> Previous </button>
+    <button onClick={goNext} disabled={selectedAns===null}> Next </button>
 
    </div>
     </div>
